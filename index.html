@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Эвакуатор Новокузнецк 24/7</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* =========================================
+           ОСНОВНЫЕ ЦВЕТА (Можно менять здесь)
+        ========================================= */
+        :root {
+            --primary-color: #ffcc00; /* Яркий желтый */
+            --bg-dark: #121212;      /* Глубокий черный */
+            --card-bg: #1e1e1e;      /* Цвет карточек */
+            --text-white: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            overflow: hidden; /* Убираем прокрутку самого сайта */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Фоновый декор (Пятна) */
+        .blob {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--primary-color);
+            filter: blur(150px);
+            opacity: 0.15;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        /* Шапка и Навигация */
+        header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-link {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link.active {
+            background: var(--primary-color);
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+        }
+
+        /* Контентные зоны */
+        main {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .tab-content {
+            position: absolute;
+            width: 100%;
+            max-width: 1000px;
+            opacity: 0;
+            transform: translateY(30px);
+            pointer-events: none;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .tab-content.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        h1 span {
+            color: var(--primary-color);
+        }
+
+        .description {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Кнопка вызова */
+        .cta-button {
+            display: inline-block;
+            padding: 20px 40px;
+            background: var(--primary-color);
+            color: #000;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(255, 204, 0, 0.6);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 204, 0, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 204, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 204, 0, 0); }
+        }
+
+        /* Сетка услуг и цен */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-10px);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .price-tag {
+            font-size: 2rem;
+            font-weight: 900;
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* Контакты */
+        .contact-info {
+            font-size: 1.5rem;
+            line-height: 2;
+        }
+
+        /* Мобильная адаптация */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            header { flex-direction: column; gap: 15px; }
+            .nav-link { padding: 8px 12px; font-size: 0.8rem; }
+            body { overflow-y: auto; height: auto; min-height: 100vh; }
+            main { min-height: 500px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="blob" style="top: 10%; left: 10%;"></div>
+    <div class="blob" style="bottom: 10%; right: 10%;"></div>
+
+    <header>
+        <div class="logo">EVAKUATOR <span style="color:#fff">NVKZ</span></div>
+        
+        <nav>
+            <div class="nav-link active" onclick="openTab(event, 'main-tab')">Главная</div>
+            <div class="nav-link" onclick="openTab(event, 'services-tab')">Услуги</div>
+            <div class="nav-link" onclick="openTab(event, 'prices-tab')">Цены</div>
+            <div class="nav-link" onclick="openTab(event, 'contacts-tab')">Контакты</div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="main-tab" class="tab-content active">
+            <h1>Эвакуатор <br><span>Новокузнецк</span> 24/7</h1>
+            <p class="description">Быстрая подача от 15 минут. Работаем по всей области + Новосибирск, Томск, Красноярск, Алтай. Ездим на любые расстояния</p>
+            
+            <a href="tel:+79045733252" class="cta-button">ВЫЗВАТЬ: +7 (904) 573-32-52</a>
+        </section>
+
+        <section id="services-tab" class="tab-content">
+            <h1>Наши <span>Услуги</span></h1>
+            <div class="grid">
+                <div class="card">
+                    <h3>Легковые авто</h3>
+                    <p>Перевозка седанов, хэтчбеков и малолитражек любой сложности.</p>
+                </div>
+                <div class="card">
+                    <h3>Внедорожники</h3>
+                    <p>Эвакуация тяжелых джипов, кроссоверов и минивэнов.</p>
+                </div>
+                <div class="card">
+                    <h3>Сложные случаи</h3>
+                    <p>Достанем из кювета, работа с заблокированными колесами.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="prices-tab" class="tab-content">
+            <h1>Честные <span>Цены</span></h1>
+            <div class="grid">
+                <div class="card">
+                    <h3>По городу</h3>
+                    <p>Легковые автомобили</p>
+                    <span class="price-tag">от 2500 ₽</span>
+                </div>
+                <div class="card">
+                    <h3>Межгород</h3>
+                    <p>Цена за километр</p>
+                    <span class="price-tag">от 40 ₽/км</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacts-tab" class="tab-content">
+            <h1>Свяжитесь <span>с нами</span></h1>
+            <div class="contact-info">
+                <p>📍 Г. Новокузнецк, работаем по всему городу</p>
+                <p>📞 Телефон: <a href="tel:+79045733252" style="color: var(--primary-color); text-decoration: none;">+7 (904) 573-32-52</a></p>
+                <p>⏰ Режим работы: Круглосуточно 24/7</p>
+                <p>🚀 Приедем быстрее всех!</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function openTab(evt, tabName) {
+            // Скрываем все вкладки
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Убираем активный класс у всех кнопок
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Показываем нужную вкладку и добавляем класс кнопке
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
